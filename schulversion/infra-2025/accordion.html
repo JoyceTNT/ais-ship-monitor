@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Infra-2025-l</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="accordion-item" id="login-section">
+    <h2 onclick="toggleAccordion(this)">Login</h2>
+    <div class="content">
+      <form id="login-form" onsubmit="event.preventDefault(); sendLoginRequest();">
+        <label>Email:</label>
+        <input type="text" id="email" />
+        <label>Passwort:</label>
+        <input type="password" id="password" />
+        <button type="submit">Login</button>
+      </form>
+      <div id="myheader"></div>
+    </div>
+  </div>
+
+  <div class="accordion-item disabled" id="map-section">
+    <h2 onclick="toggleAccordion(this)">Karte</h2>
+    <div class="content">
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <div class="accordion-item disabled" id="tabelle-section">
+    <h2 onclick="toggleAccordion(this)">Tabelle</h2>
+    <div class="content">
+      <div class="scrollable-table">
+        <table id="schiffe-table">
+          <thead>
+            <tr><th>ZEIT</th><th>MMSI</th></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="login.js"></script>
+  <script src="leaflett.js"></script>
+  <script src="tabelle.js"></script>
+
+  <script>
+    function toggleAccordion(header) {
+      const parent = header.parentElement;
+      if (parent.classList.contains("disabled")) return;
+      parent.classList.toggle("active");
+    }
+
+    setInterval(() => {
+      if (typeof updateMapData === "function") updateMapData();
+      if (typeof loadSchiffe === "function") loadSchiffe();
+    }, 100000);
+  </script>
+</body>
+</html>
+

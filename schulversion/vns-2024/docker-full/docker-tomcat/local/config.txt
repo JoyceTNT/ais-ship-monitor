@@ -1,0 +1,9 @@
+webapp=app
+manager=manager
+dbserver=mariadb
+dbuser=dbuser
+dbname=dbdemo
+dbpassword=DB_PASSWORT
+redisserver=redis
+redispassword=REDIS_PASSWORT
+baseurl=http://localhost:8080

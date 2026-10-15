@@ -1,0 +1,5 @@
+[client]
+user=DB_BENUTZER
+password=DB_PASSWORT
+host=localhost
+database=infra-2025-l_db

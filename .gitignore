@@ -1,0 +1,5 @@
+# Gesammelte AIS-Daten (zu groß für Git, bleiben lokal)
+daten/
+
+# Geheimnisse
+.env
