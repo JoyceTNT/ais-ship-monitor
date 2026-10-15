@@ -1,0 +1,12 @@
+# systemd-Dienst: startet den AIS-Sammler automatisch und startet ihn neu, falls er abstürzt
+[Unit]
+Description=AIS-Sammler (rhodes:8082 über hopper)
+After=network-online.target
+
+[Service]
+ExecStart=%h/gesamt/collector/ais-collector.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
