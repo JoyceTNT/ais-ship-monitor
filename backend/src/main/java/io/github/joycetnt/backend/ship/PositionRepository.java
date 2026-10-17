@@ -1,6 +1,7 @@
 package io.github.joycetnt.backend.ship;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,6 +17,10 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
     /** Empfangszeit der neuesten gespeicherten Position (null, wenn die Tabelle leer ist). */
     @Query("SELECT MAX(p.receivedAt) FROM Position p")
     LocalDateTime findLatestReceivedAt();
+
+    /** Die neueste Position jedes Schiffes (die mit der höchsten id pro MMSI). */
+    @Query("SELECT p FROM Position p WHERE p.id IN (SELECT MAX(p2.id) FROM Position p2 GROUP BY p2.mmsi)")
+    List<Position> findLatestPerShip();
 
     /** Höchste vergebene id (null, wenn die Tabelle leer ist). Neuere Positionen haben eine höhere id. */
     @Query("SELECT MAX(p.id) FROM Position p")
