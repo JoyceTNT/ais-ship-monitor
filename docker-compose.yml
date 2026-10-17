@@ -1,0 +1,21 @@
+# Startet die Dienste des Projekts (vorerst nur die Datenbank).
+# Starten: docker compose up -d   |   Stoppen: docker compose down
+
+services:
+  mariadb:
+    image: mariadb:12.3       # neueste LTS-Version (Support bis 2029)
+    container_name: ais-mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "127.0.0.1:3307:3306"   # nur von diesem Rechner erreichbar, Port 3307 (3306 nutzt das lokale MariaDB)
+    volumes:
+      - db-data:/var/lib/mysql                          # Daten bleiben nach einem Neustart erhalten
+      - ./database:/docker-entrypoint-initdb.d:ro       # schema.sql beim ersten Start ausführen
+
+volumes:
+  db-data:
