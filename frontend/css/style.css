@@ -1,0 +1,122 @@
+/* Grundfarben an einer Stelle, damit sie leicht zu ändern sind */
+:root {
+  --blue: #0b4f6c;
+  --light: #f4f7f9;
+  --border: #d0d7de;
+  --text: #1f2328;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  background: var(--light);
+}
+
+header {
+  background: var(--blue);
+  color: white;
+  padding: 1rem 1.5rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.subtitle {
+  margin: 0.2rem 0 0;
+  opacity: 0.85;
+}
+
+.status {
+  margin: 0.6rem 0 0;
+  font-size: 0.9rem;
+}
+
+main {
+  max-width: 1200px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+/* ---------- Akkordeon ---------- */
+.accordion {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.accordion summary {
+  cursor: pointer;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  background: white;
+}
+
+.accordion summary:hover {
+  background: var(--light);
+}
+
+.accordion[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- Karte ---------- */
+#map {
+  height: 520px;
+}
+
+/* Legende auf der Karte */
+.legend {
+  background: white;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;       /* rund */
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ---------- Tabelle ---------- */
+.table-wrapper {
+  max-height: 520px;
+  overflow: auto;           /* eigene Scrollleiste, falls die Liste lang ist */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+th {
+  position: sticky;         /* Kopfzeile bleibt beim Scrollen sichtbar */
+  top: 0;
+  background: var(--light);
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+tbody tr:hover {
+  background: #e8f1f6;
+}

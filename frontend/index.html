@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIS Ship Monitor</title>
+
+  <!-- Leaflet (Kartenbibliothek), feste Version mit Prüfsumme (integrity) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>AIS Ship Monitor</h1>
+    <p class="subtitle">Schiffsbewegungen vor Bremerhaven in Echtzeit</p>
+    <p id="status" class="status">Daten werden geladen …</p>
+  </header>
+
+  <main>
+    <!-- Akkordeon: jeder Bereich lässt sich auf- und zuklappen -->
+    <details id="map-section" class="accordion" open>
+      <summary>Karte</summary>
+      <div id="map"></div>
+    </details>
+
+    <details id="table-section" class="accordion">
+      <summary>Schiffsliste</summary>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>MMSI</th>
+              <th>Typ</th>
+              <th>Ziel</th>
+              <th>Geschwindigkeit</th>
+              <th>Status</th>
+              <th>Zuletzt gesehen</th>
+            </tr>
+          </thead>
+          <tbody id="ship-table-body"></tbody>
+        </table>
+      </div>
+    </details>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
