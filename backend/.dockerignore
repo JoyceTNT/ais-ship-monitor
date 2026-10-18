@@ -1,0 +1,2 @@
+# Nicht ins Docker-Image kopieren: wird im Container neu gebaut
+target/

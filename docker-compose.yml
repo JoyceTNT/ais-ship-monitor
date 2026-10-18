@@ -1,5 +1,5 @@
-# Startet die Dienste des Projekts (vorerst nur die Datenbank).
-# Starten: docker compose up -d   |   Stoppen: docker compose down
+# Startet die Dienste des Projekts: Datenbank und Backend (mit Webseite).
+# Starten: docker compose up -d --build   |   Stoppen: docker compose down
 
 services:
   mariadb:
@@ -16,6 +16,32 @@ services:
     volumes:
       - db-data:/var/lib/mysql                          # Daten bleiben nach einem Neustart erhalten
       - ./database:/docker-entrypoint-initdb.d:ro       # schema.sql beim ersten Start ausführen
+    healthcheck:                # "gesund" = die Datenbank nimmt Verbindungen an
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      retries: 5
+
+  backend:
+    build: ./backend            # Image aus backend/Dockerfile bauen
+    container_name: ais-backend
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy   # erst starten, wenn die Datenbank bereit ist
+    environment:
+      DB_HOST: mariadb          # im Docker-Netz heißt der Rechner wie der Dienst
+      DB_PORT: 3306             # Port innerhalb des Docker-Netzes
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      # Pfade im Container (überschreiben die Werte aus application.properties)
+      AIS_IMPORT_FILE: /daten/ais-daten.txt
+      SPRING_WEB_RESOURCES_STATIC_LOCATIONS: classpath:/static/,file:/frontend/
+    ports:
+      - "127.0.0.1:8081:8081"
+    volumes:
+      - ./daten:/daten:ro       # vom Sammler geschriebene AIS-Daten (nur lesen)
+      - ./frontend:/frontend:ro # Webseite: Änderungen sind ohne Neubau sichtbar
 
 volumes:
   db-data:
