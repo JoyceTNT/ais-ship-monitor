@@ -1,6 +1,11 @@
 // Holt die Schiffsdaten vom Backend (REST-API).
 
-const SHIPS_URL = "/api/ships";
+// Demo-Modus: auf GitHub Pages läuft kein Backend, dort feste Beispieldaten laden.
+// Lokal zum Testen mit http://localhost:8081/?demo
+export const DEMO_MODE =
+  location.hostname.endsWith("github.io") || new URLSearchParams(location.search).has("demo");
+
+const SHIPS_URL = DEMO_MODE ? "demo/ships.json" : "/api/ships";
 
 /**
  * Lädt alle Schiffe mit ihrer letzten Position.

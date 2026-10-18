@@ -17,6 +17,12 @@
     <p id="status" class="status">Daten werden geladen …</p>
   </header>
 
+  <!-- Nur im Demo-Modus sichtbar (siehe js/api.js) -->
+  <p id="demo-banner" class="demo-banner" hidden>
+    Demo-Modus: feste Beispieldaten vom 18.10.2026. In der vollständigen Version kommen die Daten
+    laufend vom AIS-Empfänger, über ein Spring-Boot-Backend und eine MariaDB-Datenbank.
+  </p>
+
   <main>
     <!-- Akkordeon: jeder Bereich lässt sich auf- und zuklappen -->
     <details id="map-section" class="accordion" open>

@@ -1,6 +1,6 @@
 // Startpunkt der Seite: verbindet API, Karte, Tabelle und Akkordeon.
 
-import { fetchShips } from "./api.js";
+import { fetchShips, DEMO_MODE } from "./api.js";
 import { initMap, showShipsOnMap, focusShip, refreshMapSize } from "./map.js";
 import { showShipsInTable } from "./table.js";
 
@@ -39,4 +39,9 @@ mapSection.addEventListener("toggle", () => {
 
 initMap();
 update();
-setInterval(update, REFRESH_SECONDS * 1000);   // regelmäßig neu laden
+
+if (DEMO_MODE) {
+  document.getElementById("demo-banner").hidden = false;   // Hinweis anzeigen, feste Daten: kein Neuladen
+} else {
+  setInterval(update, REFRESH_SECONDS * 1000);   // regelmäßig neu laden
+}

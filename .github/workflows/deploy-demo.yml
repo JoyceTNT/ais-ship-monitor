@@ -1,0 +1,43 @@
+# Veröffentlicht das Frontend im Demo-Modus auf GitHub Pages.
+# Läuft automatisch bei jedem Push auf main (oder manuell über den Tab "Actions").
+name: Live-Demo veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Rechte, die GitHub Pages für die Veröffentlichung braucht
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Nur eine Veröffentlichung gleichzeitig
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v7
+
+      # Kein Build nötig: reines HTML/CSS/JavaScript, der Ordner frontend/ wird direkt veröffentlicht
+      - name: Ordner frontend/ für GitHub Pages hochladen
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: frontend
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Auf GitHub Pages veröffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v5
